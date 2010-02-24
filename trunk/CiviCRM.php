@@ -228,6 +228,7 @@ class CiviCRM extends Backend
 				{
 					$this->Database->prepare('UPDATE tl_member SET civicrm_id=? WHERE id=?')
 								   ->execute($contact[0]['contact_id'], $data['id']);
+					// FIXME: Add to Membergroup and sync Newsletter Subscription
 					$count++;
 					$updated[] = sprintf('%-64s (%s)', $data['username'], $data['email']);
 				}
@@ -255,6 +256,26 @@ class CiviCRM extends Backend
 		return $return;
 	}
 
+
+	public function getAllGroups()
+	{
+		$return = array();
+
+		if ($GLOBALS['TL_CONFIG']['civicrm_apiurl'] && $GLOBALS['TL_CONFIG']['civicrm_sitekey'] && $GLOBALS['TL_CONFIG']['civicrm_apikey'])
+		{
+			$strUrl = $this->buildUrl('group/get');
+			$arrGroups = $this->readFromUrl($strUrl);
+
+			$return = array();
+			foreach ($arrGroups as $group) {
+				$return[$group['id']]=$group['title'];
+			}
+		} else {
+			$return = false;
+		}
+
+		return $return;
+	}
 
 	/*
 	 * Private Functions
