@@ -1,0 +1,15 @@
+/* Icons header */
+.header_sync
+{
+	padding:2px 0 3px 20px;
+	background-image:url("../images/sync.png");
+	background-position:left center;
+	background-repeat:no-repeat;
+}
+
+.civicrm_list
+{
+	width: 100%;
+	height: 180px;
+	font-family: monospaced;
+}
