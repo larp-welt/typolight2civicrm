@@ -259,6 +259,7 @@ class ModuleSubscribe extends Module
 
 		$strText = str_replace('##domain##', $this->Environment->host, $this->nl_subscribe);
 		$strText = str_replace('##link##', $this->Environment->base . $this->Environment->request . (($GLOBALS['TL_CONFIG']['disableAlias'] || strpos($this->Environment->request, '?') !== false) ? '&' : '?') . 'token=' . $strToken, $strText);
+		$strText = str_replace('##token##', $strToken, $strText);
 		$strText = str_replace(array('##channel##', '##channels##'), implode("\n", $objChannel->fetchEach('title')), $strText);
 
 		$objEmail->from = $GLOBALS['TL_ADMIN_EMAIL'];

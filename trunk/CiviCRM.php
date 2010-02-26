@@ -73,12 +73,19 @@ class CiviCRM extends Backend
 
 	public function activateRecipientHook($strEmail, $arrRecipients, $arrChannels)
 	{
+		echo "<p><b>E-Mail: $strEmail<br />";
+		echo "Recipients: <pre>".print_r($arrRecipients, true)."</pre>";
+		echo "Channels: <pre>".print_r($arrChannels, true)."</pre></b></p>";
 		/* get userdata */
 		$contact = $this->getContact(array('email'=>$strEmail));
 
 		/* get group data */
 		/* Only first group is used at the moment */
-		$objChannels = $this->Database->prepare("SELECT id, title, civicrm_group FROM tl_newsletter_channel WHERE title=?")
+		/* works on 2.8.0 */
+		//$objChannels = $this->Database->prepare("SELECT id, title, civicrm_group FROM tl_newsletter_channel WHERE title=?")
+		//							   ->execute($arrChannels[0]);
+		/* works on 2.7.x with backport */
+		$objChannels = $this->Database->prepare("SELECT id, title, civicrm_group FROM tl_newsletter_channel WHERE id=?")
 									   ->execute($arrChannels[0]);
 		$arrGroups = $objChannels->fetchEach('civicrm_group');
 		$intGroup = $arrGroups[0];
