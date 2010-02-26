@@ -73,9 +73,6 @@ class CiviCRM extends Backend
 
 	public function activateRecipientHook($strEmail, $arrRecipients, $arrChannels)
 	{
-		echo "<p><b>E-Mail: $strEmail<br />";
-		echo "Recipients: <pre>".print_r($arrRecipients, true)."</pre>";
-		echo "Channels: <pre>".print_r($arrChannels, true)."</pre></b></p>";
 		/* get userdata */
 		$contact = $this->getContact(array('email'=>$strEmail));
 
